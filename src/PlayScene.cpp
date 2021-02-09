@@ -117,7 +117,8 @@ void PlayScene::GUI_Function()
 void PlayScene::m_buildGrid()
 {
 	auto tileSize = Config::TILE_SIZE;
-	
+
+	// add tiles to grid
 	for (int row = 0; row < Config::ROW_NUM; ++row)
 	{
 		for (int col = 0; col < Config::COL_NUM; ++col)
@@ -129,6 +130,17 @@ void PlayScene::m_buildGrid()
 			m_pGrid.push_back(tile);
 		}
 	}
+	for (int row = 0; row < Config::ROW_NUM; ++row)
+	{
+		for (int col = 0; col < Config::COL_NUM; ++col)
+		{
+			
+		}
+
+	}
+
+
+	
 }
 
 void PlayScene::m_setGridEnabled(bool state) 
