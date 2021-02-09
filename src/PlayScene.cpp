@@ -65,9 +65,13 @@ void PlayScene::start()
 
 	m_buildGrid();
 
+	auto offset = glm::vec2(Config::TILE_SIZE * 0.5f, Config::TILE_SIZE * 0.5f);
 	m_pTarget = new Target();
-	m_pTarget->getTransform()->position = glm::vec2(400.0f, 300.0f);
+	m_pTarget->getTransform()->position = m_getTile(15, 11)->getTransform()->position + offset;
+	m_pTarget->setGridPosition(15, 11);
 	addChild(m_pTarget);
+
+	m_computeTileCosts();
 	
 }
 
@@ -126,6 +130,7 @@ void PlayScene::m_buildGrid()
 		{
 			Tile* tile = new Tile(); // create empty tile
 			tile->getTransform()->position = glm::vec2(col * tileSize, row * tileSize);
+			tile->setGridPosition(col, row);
 			addChild(tile);
 			tile->addLabels();
 			tile->setEnabled(false);
@@ -185,6 +190,16 @@ void PlayScene::m_buildGrid()
 
 
 	
+}
+
+void PlayScene::m_computeTileCosts()
+{
+	
+	for (auto tile : m_pGrid)
+	{
+		auto distance = Util::distance(m_pTarget->getGridPosition(), tile->getGridPosition());
+		tile->setTileCost(distance);
+	}
 }
 
 void PlayScene::m_setGridEnabled(bool state) 
